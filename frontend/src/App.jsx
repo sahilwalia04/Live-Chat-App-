@@ -6,7 +6,14 @@ import SetRoutes from './component/SetRoutes'
 import { ToastContainer } from 'react-toastify'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [message, setMessage] = useState('');
+
+  useEffect(() => {
+    fetch(`${process.env.REACT_APP_API_URL}/users`)
+      .then(res => res.json())
+      .then(data => setMessage(data.message))
+      .catch(err => console.error("API call failed", err));
+  }, []);
 
   return (
     <>
